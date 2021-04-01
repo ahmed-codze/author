@@ -21,7 +21,7 @@ if (isset($_POST['email'])) {
 		foreach ($rows as $row) {
 			setcookie("user", $row['id'], time() + 3600 * 24 * 90, "/");
 		}
-		header('location: ../index.php');
+		header('location: ../index.php?in=luebh7843gyu');
 		exit();
 	} else {
 		$head_message = 'هذا الحساب غير موجود.. من فضلك تأكد من البيانات';
@@ -62,11 +62,6 @@ if (isset($_POST['email'])) {
 		}
 
 
-		@media (max-width: 600px) {
-			.logo {
-				width: 15% !important;
-			}
-		}
 
 		@media (max-width: 370px) {
 
@@ -80,12 +75,13 @@ if (isset($_POST['email'])) {
 
 </head>
 
-<body>
+<body class="bg-dark">
 	<!-- Navigation -->
 
-	<nav class="navbar navbar-dark bg-dark" aria-label="First navbar example" style="background-color: rgba(217, 101, 75, 1) !important; padding: 0;">
+	<nav class=" navbar navbar-dark bg-dark" aria-label="First navbar example" style="background-color: rgba(217, 101, 75, 1) !important; padding: 0;">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img src="../images/logo (1).png" style="width: 14%; margin-top: -7px;" class="logo" />
+			<a class="navbar-brand" href="../index.php" style="position: relative;">
+				<img src="../images/logo (1).png" style="width: 55px; position: absolute; margin-top: -7px; z-index: 99999; top: 0;" class="logo" />
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -99,13 +95,30 @@ if (isset($_POST['email'])) {
 					<li class="nav-item">
 						<a class="nav-link" href="../index.php#serv">الخدمات</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="signin.php">تسجيل الدخول <?php
-																			if (isset($_COOKIE['user'])) {
-																				echo ' (تم التسجيل<i class="fas fa-check" ></i> )';
-																			}
-																			?></a>
-					</li>
+					<?php
+
+					if (isset($_COOKIE['user'])) {
+						echo '
+                    
+                    <li class="nav-item">
+                    <a class="nav-link" href="../profile.php">حسابي</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link logout" >تسجيل الخروج</a>
+                    </li>
+                    
+                    ';
+					} else {
+
+						echo '
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" href="signin.php">تسجيل الدخول</a>
+                        </li>
+                        
+                        ';
+					}
+					?>
 				</ul>
 			</div>
 		</div>
@@ -113,7 +126,7 @@ if (isset($_POST['email'])) {
 
 	<!-- Navigation end -->
 	<div class="limiter">
-		<div class="container-login100">
+		<div class="container-login100 bg-dark">
 			<div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
 				<form class="login100-form validate-form" method="POST" action="signin.php">
 					<span class="login100-form-title p-b-55">
@@ -138,7 +151,7 @@ if (isset($_POST['email'])) {
 
 
 					<div class="container-login100-form-btn p-t-25">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn login-btn">
 							تسجيل الدخول
 						</button>
 					</div>
@@ -170,6 +183,12 @@ if (isset($_POST['email'])) {
 	<script src="vendor/select2/select2.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
+	<script>
+		$('.logout').click(function() {
+			window.location.replace('../index.php?logout=1');
+		})
+	</script>
 
 </body>
 

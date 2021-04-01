@@ -104,11 +104,6 @@
             }
         }
 
-        @media (max-width: 600px) {
-            .logo {
-                width: 15% !important;
-            }
-        }
 
         @media (max-width: 370px) {
             .blog-slider .slick-prev {
@@ -150,7 +145,8 @@
 
     <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example" style="background-color: rgba(217, 101, 75, 1) !important; padding: 0;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"> <img src="images/logo (1).png" style="width: 14%; margin-top: -7px;" class="logo" />
+            <a class="navbar-brand" href="index.php" style="position: relative; width: 55px;">
+                <img src="images/logo (1).png" style="width: 55px; position: absolute; margin-top: -7px; z-index: 99999; top: 0;" class="logo" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -164,13 +160,30 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#serv">الخدمات</a>
                     </li>
+                    <?php
+
+                    if (isset($_COOKIE['user'])) {
+                        echo '
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="log/signin.php">تسجيل الدخول <?php
-                                                                                if (isset($_COOKIE['user'])) {
-                                                                                    echo ' (تم التسجيل<i class="fas fa-check" ></i> )';
-                                                                                }
-                                                                                ?></a>
+                    <a class="nav-link" href="profile.php">حسابي</a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link logout" >تسجيل الخروج</a>
+                    </li>
+                    
+                    ';
+                    } else {
+
+                        echo '
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" href="log/signin.php">تسجيل الدخول</a>
+                        </li>
+                        
+                        ';
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
@@ -204,7 +217,7 @@
                 <div class="col-sm-6 text-center" style="height: 100%;">
                 <img src="images/services/' . $serv['img'] . '">
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6" style="margin-bottom: 20px;">
                     <h2>' . $serv["title"] . '</h2>
                     <p class="price">' . $serv["price"] . '$</p>
                     <p>' . $serv["service_time"] . 'دقيقة </p>
@@ -299,6 +312,9 @@
             $('.book').fadeIn(800);
             $('.book a').attr('href', 'book.php?day=' + $hour.attr('class') + '&hour=' + $hour.data('time') + '&id=' + $hour.data('id'));
         });
+        $('.logout').click(function() {
+            window.location.replace('index.php?logout=1');
+        })
     </script>
 </body>
 

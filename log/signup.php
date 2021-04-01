@@ -43,7 +43,7 @@ if (isset($_POST['first_name'])) {
             setcookie("user", $row['id'], time() + 3600 * 24 * 90, "/");
         }
 
-        header('location: ../index.php');
+        header('location: ../index.php?up=our7rei437g');
         exit();
     }
 }
@@ -84,12 +84,6 @@ if (isset($_POST['first_name'])) {
         }
 
 
-        @media (max-width: 600px) {
-            .logo {
-                width: 15% !important;
-            }
-        }
-
         @media (max-width: 370px) {
 
             .logo {
@@ -102,12 +96,13 @@ if (isset($_POST['first_name'])) {
 
 </head>
 
-<body>
+<body class="bg-dark">
     <!-- Navigation -->
 
     <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example" style="background-color: rgba(217, 101, 75, 1) !important; padding: 0;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"> <img src="../images/logo (1).png" style="width: 14%; margin-top: -7px;" class="logo" />
+            <a class="navbar-brand" href="../index.php" style="position: relative;">
+                <img src="../images/logo (1).png" style="width: 55px; position: absolute; margin-top: -7px; z-index: 99999; top: 0;" class="logo" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -121,13 +116,30 @@ if (isset($_POST['first_name'])) {
                     <li class="nav-item">
                         <a class="nav-link" href="../index.php#serv">الخدمات</a>
                     </li>
+                    <?php
+
+                    if (isset($_COOKIE['user'])) {
+                        echo '
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="signin.php">تسجيل الدخول <?php
-                                                                            if (isset($_COOKIE['user'])) {
-                                                                                echo ' (تم التسجيل<i class="fas fa-check" ></i> )';
-                                                                            }
-                                                                            ?></a>
+                    <a class="nav-link" href="../profile.php">حسابي</a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link logout" >تسجيل الخروج</a>
+                    </li>
+                    
+                    ';
+                    } else {
+
+                        echo '
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" href="signin.php">تسجيل الدخول</a>
+                        </li>
+                        
+                        ';
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
@@ -192,7 +204,7 @@ if (isset($_POST['first_name'])) {
                             لديك حساب بالفعل ؟
                         </span>
 
-                        <a class="txt1 bo1 hov1" href="#">
+                        <a class="txt1 bo1 hov1" href="signin.php">
                             تسجيل الدخول
                         </a>
                     </div>
@@ -214,7 +226,11 @@ if (isset($_POST['first_name'])) {
     <script src="vendor/select2/select2.min.js"></script>
     <!--===============================================================================================-->
     <script src="js/main.js"></script>
-
+    <script>
+        $('.logout').click(function() {
+            window.location.replace('index.php?logout=1');
+        })
+    </script>
 </body>
 
 </html>

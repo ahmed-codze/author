@@ -1,3 +1,11 @@
+<?php
+
+if (isset($_GET['logout'])) {
+    unset($_COOKIE['user']);
+    setcookie("user", $_COOKIE['user'], time() - 3600 * 24 * 90, "/");
+    header('location: index.php?out=yjhg67gu376g');
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -98,12 +106,6 @@
             }
         }
 
-        @media (max-width: 600px) {
-            .logo {
-                width: 15% !important;
-            }
-        }
-
         @media (max-width: 370px) {
             .blog-slider .slick-prev {
                 left: 20%;
@@ -135,6 +137,35 @@
             }
         }
 
+        /* html {
+            --scrollbarBG: #232323;
+            --thumbBG: #232323;
+        }
+
+        body::-webkit-scrollbar {
+            width: 11px;
+        }
+
+        body {
+            scrollbar-width: thin;
+            scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+        }
+
+        body {
+            background-color: #232323;
+            color: #fff;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: var(--scrollbarBG);
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: rgba(217, 101, 75, 1);
+            border-radius: 3px;
+            border: 2px solid rgba(217, 101, 75, 1);
+        } */
+
         /* end media */
     </style>
 </head>
@@ -145,7 +176,8 @@
 
     <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example" style="background-color: rgba(217, 101, 75, 1) !important; padding: 0;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"> <img src="images/logo (1).png" style="width: 14%; margin-top: -7px;" class="logo" />
+            <a class="navbar-brand" href="index.php" style="position: relative;">
+                <img src="images/logo (1).png" style="width: 55px; position: absolute; margin-top: -7px; z-index: 99999; top: 0;" class="logo" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -159,14 +191,30 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#serv">الخدمات</a>
                     </li>
+                    <?php
+
+                    if (isset($_COOKIE['user'])) {
+                        echo '
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="log/signin.php">تسجيل الدخول <?php
-                                                                                if (isset($_COOKIE['user'])) {
-                                                                                    echo ' (تم التسجيل<i class="fas fa-check" ></i> )';
-                                                                                }
-                                                                                ?>
-                        </a>
+                    <a class="nav-link" href="profile.php">حسابي</a>
                     </li>
+                    <li class="nav-item logout" >
+                    <a class="nav-link" href="#">تسجيل الخروج</a>
+                    </li>
+                    
+                    ';
+                    } else {
+
+                        echo '
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" href="log/signin.php">تسجيل الدخول</a>
+                        </li>
+                        
+                        ';
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
@@ -310,7 +358,7 @@
                         <a target="_blank" href="https://twitter.com/mahmoudx"><i class="fab fa-twitter "></i></a>
                         <a target="_blank" href="https://www.linkedin.com/in/mahmoudm?trk=hp-identity-name"><i class="fab fa-linkedin "></i></a>
                         <a target="_blank" href="https://www.youtube.com/user/CSRinSaudi/videos"><i class="fab fa-youtube"></i></a>
-                        <i id="gm" class="fa fa-envelope"></i>
+                        <a href="mailto:allforms2020@gmail.com"><i id="gm" class="fa fa-envelope"></i></a>
                         <a target="_blank" href="http://mmt.sa/"><i class="fas fa-globe-americas"></i></a>
                     </div>
                     <div class="col-sm-6 footer-text d-none d-sm-block" style="overflow: hidden;">
@@ -324,6 +372,32 @@
             </div>
         </footer>
     </section>
+    <?php
+    if (isset($_GET['in'])) {
+
+        echo '
+    <div class="login-message alert-success text-center" style="position: absolute; width: 80%; padding: 20px; z-index: 99999; left: 10%; top: 60px;">
+        <i class="fas fa-check" style="color: green;"></i>تم تسجيل دخولك بنجاح
+    </div>
+    ';
+    }
+    if (isset($_GET['up'])) {
+
+        echo '
+    <div class="login-message alert-success text-center" style="position: absolute; width: 80%; padding: 20px; z-index: 99999; left: 10%; top: 60px;">
+        <i class="fas fa-check" style="color: green;"></i>تم انشاء حساب جديد بنجاح
+    </div>
+    ';
+    }
+    if (isset($_GET['out'])) {
+
+        echo '
+    <div class="login-message alert-danger text-center" style="position: absolute; width: 80%; padding: 20px; z-index: 99999; left: 10%; top: 60px;">
+        تم تسجيل الخروج
+    </div>
+    ';
+    }
+    ?>
     <!-- Social -->
 
     <!-- Scripts -->
@@ -333,6 +407,12 @@
     <script src="js/main.js"></script>
     <script>
         $("#stamp").css('width', '100px');
+        $('.login-message').animate({
+            top: 20,
+        }, 2000).fadeOut('slow');
+        $('.logout').click(function() {
+            window.location.replace('index.php?logout=1');
+        })
     </script>
     <script>
         document.getElementById('gm').onclick = function() {

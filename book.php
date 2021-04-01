@@ -86,7 +86,7 @@ if (isset($_GET['id']) and isset($_GET['day']) and isset($_GET['hour'])) {
             <input type="hidden" name="item_name" value="' . $service_title . '">
             <input type="hidden" name="amount" value="' . $price . '">
             <input type="hidden" name="currency_code" value="USD">
-            <input type="hidden" name="return" value="http://4bcb23af82f5.ngrok.io/author/thx.php" />
+            <input type="hidden" name="return" value="http://75065d0686a1.ngrok.io/author/thx.php" />
             <!-- Display the payment button. -->
             <input type="image" name="submit" border="0" src="images/buy.png" alt="Buy Now" 
             style="width: 200px !important; height: 100px; border: 3px solid #000; border-radius: 20px; padding: 10px; cursor: pointer;">
@@ -110,14 +110,14 @@ if (isset($_GET['id']) and isset($_GET['day']) and isset($_GET['hour'])) {
         $mail->isSMTP();                                            // Send using SMTP
         $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = 'aalfoly18@gmail.com';                     // SMTP username
-        $mail->Password   = 'ahmed2442004';                               // SMTP password
+        $mail->Username   = 'allsends2020@gmail.com';                     // SMTP username
+        $mail->Password   = 'Programer123';                               // SMTP password
         $mail->SMTPSecure = 'ssl';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 465;
         $mail->isHTML(true);
         $mail->charset = "UTF-8";
-        $mail->setFrom('aalfoly18@gmail.com', 'mahmoud');
-        $mail->addAddress('allforms2020@gmail.com');
+        $mail->setFrom('allsends2020@gmail.com', 'mahmoud');
+        $mail->addAddress('aalfoly18@gmail.com');
         $mail->Subject = 'new date';
         $mail->Body    = "
             
@@ -293,13 +293,6 @@ if (isset($_COOKIE['user'])) {
             background-color: #fff;
         }
 
-
-        @media (max-width: 600px) {
-            .logo {
-                width: 15% !important;
-            }
-        }
-
         @media (max-width: 370px) {
 
             .logo {
@@ -321,7 +314,8 @@ if (isset($_COOKIE['user'])) {
 
     <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example" style="background-color: rgba(217, 101, 75, 1) !important; padding: 0;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"> <img src="images/logo (1).png" style="width: 14%; margin-top: -7px;" class="logo" />
+            <a class="navbar-brand" href="index.php" style="position: relative;">
+                <img src="images/logo (1).png" style="width: 55px; position: absolute; margin-top: -7px; z-index: 99999; top: 0;" class="logo" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -335,13 +329,30 @@ if (isset($_COOKIE['user'])) {
                     <li class="nav-item">
                         <a class="nav-link" href="index.php#serv">الخدمات</a>
                     </li>
+                    <?php
+
+                    if (isset($_COOKIE['user'])) {
+                        echo '
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="log/signin.php">تسجيل الدخول <?php
-                                                                                if (isset($_COOKIE['user'])) {
-                                                                                    echo ' (تم التسجيل<i class="fas fa-check" ></i> )';
-                                                                                }
-                                                                                ?></a>
+                    <a class="nav-link" href="profile.php">حسابي</a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link logout" >تسجيل الخروج</a>
+                    </li>
+                    
+                    ';
+                    } else {
+
+                        echo '
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" href="log/signin.php">تسجيل الدخول</a>
+                        </li>
+                        
+                        ';
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
@@ -500,6 +511,9 @@ if (isset($_COOKIE['user'])) {
                 })
         })();
         $('.overlay').parents().css('overflowY', 'hidden');
+        $('.logout').click(function() {
+            window.location.replace('index.php?logout=1');
+        })
     </script>
 </body>
 
